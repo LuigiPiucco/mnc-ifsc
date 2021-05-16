@@ -1,0 +1,159 @@
+#+TITLE: Prova 1
+#+AUTHOR: Luigi Sartor Piucco <luigipiucco@gmail.com>
+#+LANGUAGE: pt_BR
+#+OPTIONS: toc:nil'
+#+LATEX_CLASS: abntex2
+#+LATEX_CLASS_OPTIONS: [12pt,openright,twoside,a4paper,brazil]
+
+* Prova 1
+** Questão 1
+#+begin_src octave :tangle prova1_quest1.m
+hf = figure %% Ignorar.
+T = 0:0.5:30;
+rho = @(t) 1e-6 * (0.05 * t.^3 - 9 * t.^2) + 1;
+plot (T, rho(T));
+xlabel ("Temperatura");
+ylabel ("Densidade");
+title ("Gráfico rho x T");
+%% Para salvar a figura, ignorar.
+saveas (hf, "prova1_quest1.png", "png")
+#+end_src
+[[./prova1_quest1.png]]
+
+** Questão 2
+O teorema de Bolzano não informa a existência de uma raiz (\(f(a) \cdot f(b) > 0\)),
+e observando no gráfico, de fato não há raiz, pela falta de intersecção.
+
+#+begin_src octave :tangle prova1_quest2.m
+hf = figure; %% Ignorar.
+f1 = @(x) 3 * x.^4 + x.^2;
+f2 = @(x) -5 * x - 9;
+x = -2:0.1:2;
+plot (x, f1(x), x, f2(x))
+%% Para salvar a figura, ignorar.
+saveas (hf, "prova1_quest2.png", "png");
+#+end_src
+[[./prova1_quest2.png]]
+
+** Questão 3
+Por análise gráfica e pela propriedade \(f(x_{0}) \cdot f''(x_{0}) > 0\), usaremos condições iniciais 0 e 3.
+[[./prova1_quest3.png]]
+
+Realizando as iterações para o primeiro ponto:
+|---+---------+-----------|
+| n | x       | f(x)      |
+|---+---------+-----------|
+| 0 | 0,33333 | -0,062279 |
+| 1 | 0.35725 | -0.000402 |
+|---+---------+-----------|
+
+A condição de parada já foi atingida, portanto x = 0.35725.
+
+Realizando as iterações para o segundo ponto:
+|---+--------+----------|
+| n |      x |     f(x) |
+|---+--------+----------|
+| 0 | 2,4973 | -2.16078 |
+| 1 | 2.2322 | -0.39165 |
+| 2 |  2.586 | -0.02464 |
+| 3 | 2.1533 | -0.00012 |
+|---+--------+----------|
+
+A condição de parada já foi atingida, portanto x = 2.1533.
+
+** Questão 5
+|---+--------+----------+---------|
+| n |      x |     f(x) |    erro |
+|---+--------+----------+---------|
+| 0 | 1.4165 |  0.06749 | 0.08350 |
+| 1 | 1.4339 |  0.00253 | 0.01737 |
+| 2 | 1.4345 | -0.00003 | 0.00068 |
+| 3 | 1.4345 |  0.00000 | 0.00001 |
+|---+--------+----------+---------|
+
+** Questão 6
+|----+---------+---------+---------|
+| n  |       x |    f(x) |    erro |
+|----+---------+---------+---------|
+| x1 | 0.72750 | 3.27645 | 0.02250 |
+| x2 | 0.70867 | 0.97312 | 0.01882 |
+| x3 | 0.69682 | 0.19759 | 0.01185 |
+| x4 | 0.69296 | 0.01442 | 0.00386 |
+|----+---------+---------+---------|
+
+** Questão 7
+*** Letra a
+Encontrando a função:
+\begin{equation*}
+\frac{1}{0.08^{2} \cdot 32} \left( 527 (527 - 470) \ln (1 + \frac{0.08 v}{527 - 470}) - 527 \cdot 0.08 v \right) + 300 = 0
+\end{equation*}
+\begin{equation*}
+f(v) = \frac{1}{0.08^{2} \cdot 32} \left( 527 (527 - 470) \ln (1 + \frac{0.08 v}{527 - 470}) - 527 \cdot 0.08 v \right) + 300
+\end{equation*}
+Iteração 1:
+\begin{equation*}
+x_{3} = 45 - \frac{(45 - 40)19.2249}{19.2249 - 77.1619} = 46.6591
+\end{equation*}
+Critério de parada 1:
+\begin{equation*}
+\bar{x} = \frac{40 + 45 + 46.6591}{3}
+\end{equation*}
+\begin{equation*}
+\bar{x} = 43.8864
+\end{equation*}
+\begin{equation*}
+\left| \frac{46.6591 - 43.8864}{46.6591} \right| < 0.05
+\end{equation*}
+Falso.
+
+Iteração 2:
+\begin{equation*}
+x_{4} =  46.5452
+\end{equation*}
+Critério de parada 2:
+\begin{equation*}
+\bar{x} = \frac{40 + 45 + 46.6591 + 46.5452}{4}
+\end{equation*}
+\begin{equation*}
+\bar{x} = 44,5511
+\end{equation*}
+\begin{equation*}
+\left| \frac{46.5452 - 46.6591}{46.5452} \right| < 0.05
+\end{equation*}
+
+Verdadeiro.
+\begin{equation*}
+x = 46.5452
+\end{equation*}
+
+*** Letra b
+A velocidade encontrada é maior que o limite seguro, portanto o barril é danificado.
+
+** Questão 8
+Método: Newton-Raphson.
+
+Iteração 1:
+\begin{equation*}
+x_{2} = 1 - \frac{-1.9273}{-3.8106} = 0.4942
+\end{equation*}
+
+Critério de parada 1:
+\begin{equation*}
+!(0.6878 \le 0.01)
+\end{equation*}
+
+Iterações 3 e 4:
+\begin{equation*}
+x_{3} = 0.5964
+\end{equation*}
+\begin{equation*}
+x_{4} = 0.6032
+\end{equation*}
+
+Critério de parada 4:
+\begin{equation*}
+\frac{|0.6023 - 0.5964|}{|0.6023|} = 0.009832 < 0.01
+\end{equation*}
+\begin{equation*} |0.0001| < 0.01 \end{equation*}
+
+x = 0.6032
